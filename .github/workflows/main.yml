@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4.1.1
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -24,8 +24,12 @@ jobs:
     - name: Run tests
       run: PYTHONPATH="${PWD}/src/layers/helper_layer/:${PWD}/src/layers/domain_layer/" python -m pytest --junit-xml=test-results.xml
 
-    - name: Surface failing tests
-      if: always()
-      uses: pmeier/pytest-results-action@main
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2.16.1
       with:
-        path: '**/test-results.xml'
+        files: '**/test-results.xml'
+    # - name: Surface failing tests
+    #   if: always()
+    #   uses: pmeier/pytest-results-action@main
+    #   with:
+    #     path: '**/test-results.xml'
