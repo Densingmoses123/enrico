@@ -22,7 +22,7 @@ jobs:
         pip install -r requirements.txt
         
     - name: Run tests
-      run: PYTHONPATH="${PWD}/src/layers/helper_layer/:${PWD}/src/layers/domain_layer/" python -m pytest --junit-xml=test-results.xml
+      run: PYTHONPATH="${PWD}/src/layers/helper_layer/:${PWD}/src/layers/domain_layer/" python -m pytest --cov=./ --cov-report=xml --junit-xml=test-results.xml
 
     - name: Surface failing tests
       if: always()
